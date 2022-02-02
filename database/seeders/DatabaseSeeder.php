@@ -1,6 +1,9 @@
 <?php
 
 namespace Database\Seeders;
+use App\Models\ArticleCategory;
+use App\Models\Article;
+use App\Models\ArticleImage;
 
 use Illuminate\Database\Seeder;
 
@@ -13,6 +16,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call([
+            ArticleCategorySeeder::class,
+            ArticleSeeder::class
+        ]);
     }
 }

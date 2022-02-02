@@ -13,7 +13,6 @@
                             <div class="btn-group">
                                 <a class="btn btn-primary" href="{{route('articleimage.show', [$articleImage])}}">Show</a>
                                 <a class="btn btn-success" href="{{route('articleimage.edit', [$articleImage])}}">Edit</a>
-
                                 <form action="{{route('articleimage.destroy', [$articleImage])}}" method="POST">
                                     @csrf
                                     <button class="btn btn-danger" type="submit">Delete</button>
@@ -23,7 +22,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

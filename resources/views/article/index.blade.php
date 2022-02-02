@@ -25,7 +25,7 @@
         </a>
         <h3>{{$article->author}}</h3>
         <a href="{{route('articlecategory.show', [$article->category])}}">
-            <h6>{{$article->category}}</h6>
+            <h6>{{$article->articleCategory->title}}</h6>
         </a>
 
         <p>{{$article->excerpt}}</p>
