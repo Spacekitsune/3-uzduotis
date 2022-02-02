@@ -6,19 +6,29 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <h1>Enter new category</h1>
+                <h1>Upload new image</h1>
 
-                <form action="{{ route('articlecategory.store') }}" method="POST">
+                <form action="{{ route('articleimage.store') }}" method="POST" enctype="multipart/form-data">
+                
+                    <input class="form-control" type="file" name="articleImage_src"  required autofocus>
+                    <input class="form-control" type="text" name="articleImage_alt" placeholder="alt"></br>
+                    <input class="form-control" type="number" name="articleImage_height" placeholder="height px"></br>
+                    <input class="form-control" type="number" name="articleImage_width" placeholder="width px"></br>
+                    <input class="form-control" type="text" name="articleImage_class" placeholder="class"></br>
+                    <select name="articleImage_articleId" class="form-control form-select">
+                        @foreach ($selected_values as $articles)
 
-                    <input class="form-control" type="text" name="articlecategory_title" placeholder="Title"> </br>
-                    <textarea name="articlecategory_description" cols="30" rows="5" class="form-control">Article category description</textarea>
-                    @csrf
-                    <button class="btn btn-success" type="submit">Add category</button>
+                        <option value="{{$articles->id}}"> {{$articles->title}} </option>
+
+                        @endforeach
+                        
+                        @csrf
+                        <button class="btn btn-success" type="submit">Update image</button>                        
 
                 </form>
             </div>
             <div class="container my-6">
-                <a href="{{ route('articlecategory.index') }}" class="btn btn-info">Back</a>
+                <a href="{{ route('articleimage.index') }}" class="btn btn-info">Back</a>
             </div>
         </div>
     </div>

@@ -6,19 +6,31 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <h1>Edit category</h1>
+                <h1>Upload new image</h1>
 
-                <form action="{{ route('articlecategory.update', [$articleCategory]) }}" method="POST">
+                <form action="{{ route('articleimage.update', [$articleImage]) }}" method="POST" enctype="multipart/form-data">
 
-                    <input class="form-control" type="text" name="articlecategory_title" value="{{$articleCategory->title}}"></br>
-                    <textarea name="articlecategory_description" cols="30" rows="5" class="form-control">{{$articleCategory->description}}</textarea>
-                    @csrf
-                    <button class="btn btn-success" type="submit">Edit category</button>
+                    <input class="form-control" type="file" name="articleImage_src" >
+                    <input class="form-control" type="text" name="articleImage_alt" value="{{$articleImage->alt}}"></br>
+                    <input class="form-control" type="number" name="articleImage_height" value="{{$articleImage->height}}"></br>
+                    <input class="form-control" type="number" name="articleImage_width" value="{{$articleImage->width}}"></br>
+                    <input class="form-control" type="text" name="articleImage_class" value="{{$articleImage->class}}"></br>
+                    <select name="articleImage_articleId" class="form-control form-select">
+                        @foreach ($selected_values as $article)
+                        @if ($article->id == $articleImage->article_id)
+                        <option value="{{$article->id}}" selected>{{$article->title}}</option>
+                        @else
+                        <option value="{{$article->id}}"> {{$article->title}} </option>
+                        @endif
+                        @endforeach
+
+                        @csrf
+                        <button class="btn btn-success" type="submit">Update image</button>
 
                 </form>
             </div>
             <div class="container my-6">
-                <a href="{{ route('articlecategory.index') }}" class="btn btn-info">Back</a>
+                <a href="{{ route('articleimage.index') }}" class="btn btn-info">Back</a>
             </div>
         </div>
     </div>

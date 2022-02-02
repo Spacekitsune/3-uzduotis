@@ -5,47 +5,45 @@
 
 <div class="container">
 
-    <h1>Article category list</h1>
+    <h1>Image list</h1>
 
     @if (session()->has('success_message'))
-    <div class="alert alert-success">Category was deleted.</div>
+    <div class="alert alert-success">Image was deleted.</div>
     @endif
 
-    @if (count($articleCategory)== 0)
-    <p>There are no article categories</p>
+    @if (count($articleImage)== 0)
+    <p>There are no images</p>
     @endif
 
-    <a class="btn btn-primary" href="{{route('articlecategory.create')}}">Create new category</a>
+    <a class="btn btn-primary" href="{{route('articleimage.create')}}">Upload new image</a>
 
-    <table class="table table-striped">
-        <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Description</th>
-            <!-- <th>Articles</th> -->
-            <th>Action</th>
-        </tr>
+    <div class="album py-5 bg-light">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-md-4 g-3">
+            @foreach ($articleImage as $image)
+            <div class="col">
+                <div class="card shadow-sm">
+                    <img src="{{'/images/'.$image->src}}" class="bd-placeholder-img card-img-top" alt="{{$image->alt}}" width="100%" height="225">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a class="btn btn-primary" href="{{route('articleimage.show', [$image])}}">Show</a>
+                                <a class="btn btn-success" href="{{route('articleimage.edit', [$image])}}">Edit</a>
 
-        <!--blade sintaksė -->
-        @foreach ($articleCategory as $category)
-        <tr>
-            <td>{{$category->id}}</td>
-            <td>{{$category->title}}</td>
-            <td>{{$category->description}}</td>
-           <!-- <td></td> -->
-            <td>
-                <a class="btn btn-primary" href="{{route('articlecategory.show', [$category])}}">Show</a>
-                <a class="btn btn-success" href="{{route('articlecategory.edit', [$category])}}">Edit</a>
+                                <form action="{{route('articleimage.destroy', [$image])}}" method="POST">
+                                    @csrf
+                                    <button class="btn btn-danger" type="submit">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+            </div>
+        </div>
+    </div>
 
-                <form action="{{route('articlecategory.destroy', [$category])}}" method="POST">
-                    @csrf
-                    <button class="btn btn-danger" type="submit">Delete</button>
-                </form>
-            </td>
-        </tr>
-        @endforeach
-
-    </table>
 </div>
 
 
