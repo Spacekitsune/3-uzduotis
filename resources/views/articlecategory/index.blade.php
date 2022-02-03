@@ -17,10 +17,27 @@
 
     <a class="btn btn-primary" href="{{route('articlecategory.create')}}">Create new category</a>
 
+    <div class="container my-4">
+        <h4>Sort categories</h4>
+        <form action="" method="GET">
+            <select name="sortCollumn">
+                <option value="id">ID</option>
+                <option value="title">Title</option>
+            </select>
+            <select name="sortOrder">
+                <option value="desc">DESK</option>
+                <option value="asc">ASC</option>
+            </Select>
+            @csrf
+            <input type="submit" value="submit">
+
+        </form>
+    </div>
+
     <table class="table table-striped">
         <tr>
-            <th>ID</th>
-            <th>Title</th>
+            <th><a href="{{route('articlecategory.index').'?sortCollumn=id&sortOrder=asc'}}">ID</a></th>
+            <th><a href="{{route('articlecategory.index').'?sortCollumn=title&sortOrder=asc'}}">Title</a></th>
             <th>Description</th>
             <!-- <th>Articles</th> -->
             <th>Action</th>
@@ -32,7 +49,7 @@
             <td>{{$category->id}}</td>
             <td>{{$category->title}}</td>
             <td>{{$category->description}}</td>
-           <!-- <td></td> -->
+            <!-- <td></td> -->
             <td>
                 <a class="btn btn-primary" href="{{route('articlecategory.show', [$category])}}">Show</a>
                 <a class="btn btn-success" href="{{route('articlecategory.edit', [$category])}}">Edit</a>

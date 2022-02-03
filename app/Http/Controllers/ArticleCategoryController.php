@@ -14,9 +14,21 @@ class ArticleCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $articleCategory = ArticleCategory::all();
+        $sortCollumn = $request->sortCollumn;
+        $sortOrder = $request->sortOrder;
+        //SORT_REGULAR rušiavimo algoritmas
+        //true - DESC
+        //false - ASC
+        //tinka iki 100 db eilučių
+        // $articleCategory = ArticleCategory::all()->sortBy('id', SORT_REGULAR, true);
+        //tinka virš 100 db eilučių
+        if (empty($sortCollumn) || empty($sortOrder)) {
+            $articleCategory = ArticleCategory::all();
+        } else {
+            $articleCategory = ArticleCategory::orderBy($sortCollumn, $sortOrder)->get();
+        }
         return view('articlecategory.index', ['articleCategory' => $articleCategory]);
     }
 
@@ -41,7 +53,7 @@ class ArticleCategoryController extends Controller
         $articleCategory = new ArticleCategory();
         $articleCategory->title = $request->articlecategory_title;
         $articleCategory->description = $request->articlecategory_description;
-    
+
         $articleCategory->save();
 
         return redirect()->route('articlecategory.index');
@@ -78,10 +90,10 @@ class ArticleCategoryController extends Controller
      */
     public function update(Request $request, ArticleCategory $articleCategory)
     {
-       
+
         $articleCategory->title = $request->articlecategory_title;
         $articleCategory->description = $request->articlecategory_description;
-    
+
         $articleCategory->save();
 
         return redirect()->route('articlecategory.index');
@@ -99,7 +111,7 @@ class ArticleCategoryController extends Controller
         // if (count($attendancegroups) != 0) {
         //     return redirect()->route('school.index')->with('error_message', 'Delete is not possible while school has attendance groups.');
         // } 
-            $articleCategory->delete();
-            return redirect()->route('articlecategory.index')->with('success_message', 'Category was deleted.');
+        $articleCategory->delete();
+        return redirect()->route('articlecategory.index')->with('success_message', 'Category was deleted.');
     }
 }
