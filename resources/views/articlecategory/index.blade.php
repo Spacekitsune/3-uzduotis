@@ -43,7 +43,7 @@
             <th>Action</th>
         </tr>
 
-        <!--blade sintaksė -->
+        <!--blade sintaksė --
         @foreach ($articleCategory as $category)
         <tr>
             <td>{{$category->id}}</td>
